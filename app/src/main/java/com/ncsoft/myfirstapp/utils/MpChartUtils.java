@@ -19,12 +19,14 @@ public class MpChartUtils {
     private static List<LineDataSet> dummyDataSetList;
     private static List<String> dummyXVals;
 
+    private static int[] colors = new int[] {Color.RED, Color.YELLOW, Color.GREEN, Color.BLUE, Color.CYAN};
+
     static {
         dummyDataSetList = new ArrayList<LineDataSet>();
         dummyXVals = new ArrayList<String>();
 
-        for (int i = 0 ; i < 300 ; i++) {
-            dummyXVals.add(i + "");
+        for (int j = 0 ; j < 300 ; j++) {
+            dummyXVals.add(j + "");
         }
 
         String BASE_TASK = "com.ncsoft.platform.noti.worker.merge.service.SimpleMergeService.saveSimpleMerge(NotiDto,NotiRequest)_";
@@ -37,7 +39,7 @@ public class MpChartUtils {
                 yValList.add(entry);
             }
             LineDataSet lineDataSet = new LineDataSet(yValList, taskName);
-            lineDataSet.setColor(Color.BLACK);
+            lineDataSet.setColor(colors[i % colors.length]);
             lineDataSet.setLineWidth(0.5f);
             lineDataSet.setDrawValues(false);
             lineDataSet.setDrawCircleHole(false);
@@ -53,10 +55,8 @@ public class MpChartUtils {
         if (startIndex >= 0 && startIndex < dummyDataSetList.size()) {
             for (int i = startIndex ; i < dummyDataSetList.size() ; i++) {
                 LineDataSet lineDataSet = dummyDataSetList.get(i);
-                lineDataSet.setColor(Color.RED);
-                lineDataSet.setLineWidth(0.5f);
                 lineDataSetList.add(lineDataSet);
-                if (lineDataSetList.size() >= 10) {
+                if (lineDataSetList.size() >= 50) {
                     break;
                 }
             }

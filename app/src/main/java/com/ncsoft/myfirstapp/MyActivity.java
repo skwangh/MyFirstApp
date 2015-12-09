@@ -4,10 +4,17 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.ncsoft.myfirstapp.listview.LegendAdapter;
 import com.ncsoft.myfirstapp.utils.MpChartUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyActivity extends Activity {
 
@@ -35,13 +42,26 @@ public class MyActivity extends Activity {
 
         
         Legend legend = mChart.getLegend();
-        legend.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
-        legend.setDirection(Legend.LegendDirection.RIGHT_TO_LEFT);
-        legend.setForm(Legend.LegendForm.SQUARE);
+        legend.setEnabled(false);
 
         mChart.setData(MpChartUtils.getDummyData(0));
         mChart.invalidate();
+
+        setListView();
+
     }
+
+    private void setListView() {
+        ListView listView = (ListView) findViewById(R.id.view_list);
+
+        List<LineDataSet> dataSetList = mChart.getData().getDataSets();
+
+        LegendAdapter legendAdapter = new LegendAdapter(dataSetList);
+
+        listView.setAdapter(legendAdapter);
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
